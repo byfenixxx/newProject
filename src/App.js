@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AddProductPage from './pages/AddProductPage';
+import MainPage from './pages/MainPage';
+import "./App.css";
 
-function App() {
+const App = () => {
+
+  const [products, setProducts] = useState([]);
+
+  function addProduct(product) {
+
+    setProducts([...products, product]);
+
+    console.log("Product", product);
+    console.log("Products", products);
+    
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <BrowserRouter >
+      <h1>It is header</h1>
+        <Routes>
+          <Route path="/" element={<MainPage products={products} />} />
+          <Route path="/add_product" element={<AddProductPage addProduct={addProduct} />} />
+        </Routes>
+        <h1>It is footer</h1>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
+
+
